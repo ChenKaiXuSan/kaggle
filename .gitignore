@@ -131,3 +131,5 @@ dmypy.json
 # Dataset path 
 data/
 images/
+CycleGAN/current.ckpt
+CycleGAN/init.ckpt
