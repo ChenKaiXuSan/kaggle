@@ -130,6 +130,8 @@ dmypy.json
 
 # Dataset path 
 data/
-images/
 *.pth
 *.ckpt
+*.png
+*.jpg
+*.zip

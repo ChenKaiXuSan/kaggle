@@ -22,7 +22,6 @@ from torchvision.utils import save_image
 from torch.utils.data import Dataset, DataLoader, Subset
 from PIL import Image, ImageOps, ImageEnhance
 
-import cv2
 import albumentations as A
 # from albumentations.pytorch import ToTensor
 
@@ -55,7 +54,7 @@ torch.cuda.manual_seed_all(seed)
 np.random.seed(seed)
 os.environ['PYTHONHASHSEED'] = str(seed)
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 NUM_WORKERS = 4
 EMA = False
 LABEL_NOISE = False
@@ -409,8 +408,10 @@ class ConditionalNorm(nn.Module):
         out = self.bn(inputs)
         embed = self.embed(label.float())
         gamma, beta = embed.chunk(2, dim=1)
+
         gamma = gamma.unsqueeze(2).unsqueeze(3)
         beta = beta.unsqueeze(2).unsqueeze(3)
+        
         out = gamma * out + beta
 
         return out
