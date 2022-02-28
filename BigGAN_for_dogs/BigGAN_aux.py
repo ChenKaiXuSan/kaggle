@@ -5,6 +5,7 @@ import time
 import glob
 import shutil
 import warnings
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 import cv2
 import scipy
@@ -27,7 +28,7 @@ from torchvision import transforms
 from torchvision.utils import make_grid, save_image
 
 
-%matplotlib inline
+# %matplotlib inline
 warnings.filterwarnings('ignore', category=FutureWarning)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -531,6 +532,7 @@ while True:
         loss_D += config['gamma'] * criterion(preds_real_labels, real_labels)
         loss_D.backward()
         optim_D.step()
+        
         
         if (decay_iter > 0) and (step > config['decay_start_iteration']):
             lr_sche_D.step()
